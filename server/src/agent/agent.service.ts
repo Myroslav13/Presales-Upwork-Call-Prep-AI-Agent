@@ -40,7 +40,8 @@ export class AgentService {
   private async runAnalysis(
     dto: AnalyzeRequestDto,
   ): Promise<{ data: AnalysisStepResult; model: string }> {
-    const systemPrompt = `Presales analyst. Analyze job post + client messages.
+    const systemPrompt = 
+      `You are a Presales analyst. Analyze job post + client messages.
       Return ONLY compact JSON:
       {"opportunitySummary":"1-2 sentences","clientNeeds":{"main":"string","hidden":["2-3 items"]},"risks":["3-5 short items"]}
       Keep every string short. No fluff.`;
@@ -48,7 +49,8 @@ export class AgentService {
     const messages =
       dto.clientMessages?.filter(Boolean).join('\n---\n') || 'None provided';
 
-    const userPrompt = `Job post:
+    const userPrompt = 
+      `Job post:
       ${dto.jobPost}
 
       Client messages:
@@ -70,7 +72,8 @@ export class AgentService {
     dto: AnalyzeRequestDto,
     analysis: AnalysisStepResult,
   ): Promise<{ data: StrategyStepResult; model: string }> {
-    const systemPrompt = `Solution strategist. Use prior analysis + expertise + constraints.
+    const systemPrompt = 
+      `You are a Solution strategist. Use prior analysis + expertise + constraints.
       Return ONLY compact JSON:
       {"suggestedPositioning":"2-3 sentences","solutionApproach":"2-3 sentences"}
       Stay realistic. Do not invent credentials. Keep text short.`;
@@ -79,7 +82,8 @@ export class AgentService {
       ? JSON.stringify(dto.constraints, null, 2)
       : 'None provided';
 
-    const userPrompt = `Prior analysis:
+    const userPrompt = 
+      `Prior analysis:
       ${JSON.stringify(analysis, null, 2)}
 
       Team expertise:
@@ -104,12 +108,14 @@ export class AgentService {
     analysis: AnalysisStepResult,
     strategy: StrategyStepResult,
   ): Promise<{ data: InterviewStepResult; model: string }> {
-    const systemPrompt = `Discovery-call coach. Use analysis + strategy.
+    const systemPrompt = 
+      `You are a Discovery-call coach. Use analysis + strategy.
       Return ONLY compact JSON:
       {"discoveryQuestions":["5-7 short questions"],"callStrategy":"2-3 sentences","finalPrepNote":"1-2 sentences"}
       Keep every string short.`;
 
-    const userPrompt = `Analysis:
+    const userPrompt = 
+      `Analysis:
       ${JSON.stringify(analysis, null, 2)}
 
       Strategy:

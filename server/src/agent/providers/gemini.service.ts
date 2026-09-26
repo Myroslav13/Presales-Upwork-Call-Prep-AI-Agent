@@ -73,7 +73,7 @@ export class GeminiService {
       generationConfig: {
         temperature: 0.3,
         maxOutputTokens: 1024,
-        ...(useJson ? { responseMimeType: 'application/json' as const } : {}),
+        ...(useJson ? { responseMimeType: 'application/json' } : {}),
       },
     });
 
