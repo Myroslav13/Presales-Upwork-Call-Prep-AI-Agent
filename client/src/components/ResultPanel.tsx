@@ -1,7 +1,8 @@
-import { useState } from 'react'
 import type { PrepPlan } from '../types'
 import { Section } from './Section'
 import { CopyButton } from './CopyButton'
+import { PanelHeader } from './PanelHeader'
+import { ClientNeedsTabs } from './ClientNeedsTabs'
 
 type Props = {
   plan: PrepPlan | null
@@ -9,15 +10,10 @@ type Props = {
 }
 
 export function ResultPanel({ plan, isLoading }: Props) {
-  const [needsTab, setNeedsTab] = useState<'main' | 'hidden'>('main')
-
   if (isLoading) {
     return (
       <section className="panel panel-result">
-        <header className="panel-header">
-          <p className="panel-kicker">Output</p>
-          <h2>Prepared Plan</h2>
-        </header>
+        <PanelHeader kicker="Output" title="Prepared Plan" />
         <div className="empty-state analyzing">
           <div className="pulse-ring" />
           <p>Analyzing job post and client context…</p>
@@ -29,13 +25,11 @@ export function ResultPanel({ plan, isLoading }: Props) {
   if (!plan) {
     return (
       <section className="panel panel-result">
-        <header className="panel-header">
-          <p className="panel-kicker">Output</p>
-          <h2>Prepared Plan</h2>
-          <p className="panel-desc">
-            Your structured briefing will appear here after generation.
-          </p>
-        </header>
+        <PanelHeader
+          kicker="Output"
+          title="Prepared Plan"
+          description="Your structured briefing will appear here after generation."
+        />
         <div className="empty-state">
           <p>Fill the left panel and hit Generate Prep Plan.</p>
         </div>
@@ -49,13 +43,11 @@ export function ResultPanel({ plan, isLoading }: Props) {
 
   return (
     <section className="panel panel-result">
-      <header className="panel-header">
-        <p className="panel-kicker">Output</p>
-        <h2>Prepared Plan</h2>
-        <p className="panel-desc">
-          Structured briefing ready for your next client call.
-        </p>
-      </header>
+      <PanelHeader
+        kicker="Output"
+        title="Prepared Plan"
+        description="Structured briefing ready for your next client call."
+      />
 
       <div className="result-stack">
         <Section title="Opportunity Summary" tone="success">
@@ -63,35 +55,10 @@ export function ResultPanel({ plan, isLoading }: Props) {
         </Section>
 
         <Section title="Client Needs Breakdown">
-          <div className="tabs" role="tablist">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={needsTab === 'main'}
-              className={needsTab === 'main' ? 'tab active' : 'tab'}
-              onClick={() => setNeedsTab('main')}
-            >
-              Main Need
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={needsTab === 'hidden'}
-              className={needsTab === 'hidden' ? 'tab active' : 'tab'}
-              onClick={() => setNeedsTab('hidden')}
-            >
-              Possible Hidden Needs
-            </button>
-          </div>
-          {needsTab === 'main' ? (
-            <p className="tab-panel">{plan.mainNeed}</p>
-          ) : (
-            <ul className="tab-panel list">
-              {plan.hiddenNeeds.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          )}
+          <ClientNeedsTabs
+            mainNeed={plan.mainNeed}
+            hiddenNeeds={plan.hiddenNeeds}
+          />
         </Section>
 
         <Section
