@@ -7,9 +7,10 @@ import { ClientNeedsTabs } from './ClientNeedsTabs'
 type Props = {
   plan: PrepPlan | null
   isLoading: boolean
+  error?: string | null
 }
 
-export function ResultPanel({ plan, isLoading }: Props) {
+export function ResultPanel({ plan, isLoading, error }: Props) {
   if (isLoading) {
     return (
       <section className="panel panel-result">
@@ -17,6 +18,17 @@ export function ResultPanel({ plan, isLoading }: Props) {
         <div className="empty-state analyzing">
           <div className="pulse-ring" />
           <p>Analyzing job post and client context…</p>
+        </div>
+      </section>
+    )
+  }
+
+  if (error) {
+    return (
+      <section className="panel panel-result">
+        <PanelHeader kicker="Output" title="Prepared Plan" />
+        <div className="empty-state error-state" role="alert">
+          <p>{error}</p>
         </div>
       </section>
     )
