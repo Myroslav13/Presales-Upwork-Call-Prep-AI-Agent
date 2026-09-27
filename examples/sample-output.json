@@ -1,0 +1,27 @@
+{
+  "opportunitySummary": "Building an AI-powered call preparation web app for freelancers that generates structured briefs from job posts and messages.",
+  "clientNeedsBreakdown": {
+    "main": "Develop an AI-driven call prep web application using React and NestJS with LLM API integration.",
+    "hidden": [
+      "Proven experience shipping LLM features",
+      "Clear communication skills for discovery calls",
+      "Previous portfolio of sales or prep tooling"
+    ]
+  },
+  "discoveryQuestions": [
+    "What specific job post and message formats must the AI parse first?",
+    "How do you envision the ideal structure of the generated call brief?",
+    "Are you using OpenAI or another LLM provider for the backend?",
+    "What does a successful MVP look like at the end of the 3-4 weeks?",
+    "How would you like to handle twice-weekly syncs and feedback loops?"
+  ],
+  "risks": [
+    "Scope creep regarding the depth of the AI brief generation",
+    "Ambiguous definition of the 'similar prep/sales tooling' requirement",
+    "Tight timelines for scheduling the discovery call and proving domain expertise"
+  ],
+  "suggestedPositioning": "Full-stack engineer specializing in React, NestJS, and LLM integrations, ready to deliver a production-ready AI call preparation MVP within 3-4 weeks. Backed by experience building AI workflow tools, I focus on clear async communication and structured execution to keep scope tight and aligned with your $2,000 budget.",
+  "recomendedSolutionApproach": "I will build a robust web app using a React frontend and NestJS backend integrated with OpenAI/Gemini APIs to parse job posts and messages into actionable briefs. To mitigate scope creep, we will follow a milestone-driven MVP approach with twice-weekly syncs to refine AI outputs, ensure high reliability, and ship within the 3-4 week timeline.",
+  "callStrategy": "Position yourself as an experienced full-stack LLM developer ready to deliver the MVP within 3-4 weeks. Emphasize your structured milestone approach to keep the AI brief generation within scope and budget.",
+  "finalPrepNote": "Have a portfolio piece of an AI workflow tool ready to share. Confirm your alignment with their $2,000 budget early."
+}
