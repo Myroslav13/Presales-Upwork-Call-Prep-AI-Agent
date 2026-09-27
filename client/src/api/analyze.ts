@@ -1,20 +1,6 @@
 import axios from 'axios'
 import type { PrepFormData, PrepPlan } from '../types'
 
-type AnalyzeApiResponse = {
-  opportunitySummary: string
-  clientNeeds: {
-    main: string
-    hidden: string[]
-  }
-  risks: string[]
-  suggestedPositioning: string
-  solutionApproach: string
-  discoveryQuestions: string[]
-  callStrategy: string
-  finalPrepNote: string
-}
-
 function buildPayload(form: PrepFormData) {
   const messages = form.clientMessages
     .split('\n')
@@ -38,32 +24,18 @@ function buildPayload(form: PrepFormData) {
   }
 }
 
-function mapToPrepPlan(data: AnalyzeApiResponse): PrepPlan {
-  return {
-    opportunitySummary: data.opportunitySummary,
-    mainNeed: data.clientNeeds.main,
-    hiddenNeeds: data.clientNeeds.hidden,
-    discoveryQuestions: data.discoveryQuestions,
-    risks: data.risks,
-    suggestedPositioning: data.suggestedPositioning,
-    solutionApproach: data.solutionApproach,
-    callStrategy: data.callStrategy,
-    finalPrepNote: data.finalPrepNote,
-  }
-}
-
 export async function analyzeJob(form: PrepFormData): Promise<PrepPlan> {
   const baseUrl = import.meta.env.VITE_API_URL?.replace(/\/$/, '')
   if (!baseUrl) {
     throw new Error('VITE_API_URL is not configured')
   }
 
-  const { data } = await axios.post<AnalyzeApiResponse>(
+  const { data } = await axios.post<PrepPlan>(
     `${baseUrl}/api/agent/analyze`,
     buildPayload(form),
   )
 
-  return mapToPrepPlan(data)
+  return data
 }
 
 export function getApiErrorMessage(error: unknown): string {

@@ -67,10 +67,7 @@ export function ResultPanel({ plan, isLoading, error }: Props) {
         </Section>
 
         <Section title="Client Needs Breakdown">
-          <ClientNeedsTabs
-            mainNeed={plan.mainNeed}
-            hiddenNeeds={plan.hiddenNeeds}
-          />
+          <ClientNeedsTabs clientNeeds={plan.clientNeeds} />
         </Section>
 
         <Section
