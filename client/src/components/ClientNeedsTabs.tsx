@@ -1,11 +1,11 @@
 import { useState } from 'react'
+import type { ClientNeeds } from '../types'
 
 type Props = {
-  mainNeed: string
-  hiddenNeeds: string[]
+  clientNeeds: ClientNeeds
 }
 
-export function ClientNeedsTabs({ mainNeed, hiddenNeeds }: Props) {
+export function ClientNeedsTabs({ clientNeeds }: Props) {
   const [tab, setTab] = useState<'main' | 'hidden'>('main')
 
   return (
@@ -31,10 +31,10 @@ export function ClientNeedsTabs({ mainNeed, hiddenNeeds }: Props) {
         </button>
       </div>
       {tab === 'main' ? (
-        <p className="tab-panel">{mainNeed}</p>
+        <p className="tab-panel">{clientNeeds.main}</p>
       ) : (
         <ul className="tab-panel list">
-          {hiddenNeeds.map((item) => (
+          {clientNeeds.hidden.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>

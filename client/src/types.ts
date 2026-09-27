@@ -8,10 +8,14 @@ export type PrepFormData = {
   timezone: string
 }
 
+export type ClientNeeds = {
+  main: string
+  hidden: string[]
+}
+
 export type PrepPlan = {
   opportunitySummary: string
-  mainNeed: string
-  hiddenNeeds: string[]
+  clientNeeds: ClientNeeds
   discoveryQuestions: string[]
   risks: string[]
   suggestedPositioning: string

@@ -199,6 +199,12 @@
   background: rgba(255, 255, 255, 0.4);
 }
 
+.empty-state.error-state {
+  border-color: #efc4c4;
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
 .empty-state.analyzing {
   display: flex;
   flex-direction: column;

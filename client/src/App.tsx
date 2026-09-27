@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { analyzeJob, getApiErrorMessage } from './api/analyze'
 import { InputPanel } from './components/InputPanel'
 import { ResultPanel } from './components/ResultPanel'
-import { MOCK_PLAN } from './mockPlan'
 import type { PrepFormData, PrepPlan } from './types'
 import './App.css'
 
@@ -19,19 +19,31 @@ function App() {
   const [form, setForm] = useState<PrepFormData>(EMPTY_FORM)
   const [plan, setPlan] = useState<PrepPlan | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   function handleChange(field: keyof PrepFormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
-  function handleGenerate() {
+  async function handleGenerate() {
     if (isLoading) return
+    if (!form.jobPost.trim()) {
+      setError('Job Post is required')
+      return
+    }
+
     setIsLoading(true)
     setPlan(null)
-    window.setTimeout(() => {
-      setPlan(MOCK_PLAN)
+    setError(null)
+
+    try {
+      const result = await analyzeJob(form)
+      setPlan(result)
+    } catch (err) {
+      setError(getApiErrorMessage(err))
+    } finally {
       setIsLoading(false)
-    }, 1800)
+    }
   }
 
   return (
@@ -53,7 +65,7 @@ function App() {
           onChange={handleChange}
           onGenerate={handleGenerate}
         />
-        <ResultPanel plan={plan} isLoading={isLoading} />
+        <ResultPanel plan={plan} isLoading={isLoading} error={error} />
       </main>
     </div>
   )
